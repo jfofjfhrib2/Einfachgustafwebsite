@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Einfachgustaf – Fanseite</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-soft: #0e1626;
+      --card: #122038;
+      --text: #e8eefc;
+      --muted: #9fb3c8;
+      --accent: #3b82f6;
+      --accent-2: #22d3ee;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --shadow: 0 10px 30px rgba(0,0,0,0.45);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #0a1222 40%, var(--bg));
+      color: var(--text);
+      min-height: 100%;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(7,11,20,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1b2a44;
+    }
+    .nav-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+    }
+    .brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #0f1a2e;
+      border: 1px solid #223452;
+    }
+    nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav-btn {
+      background: #101b2f;
+      border: 1px solid #223452;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .nav-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+      color: #04101a;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    section {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+    section.active {
+      display: block;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero {
+      background: radial-gradient(1200px 300px at 50% -10%, rgba(59,130,246,0.25), transparent 60%),
+                  var(--bg-soft);
+      border: 1px solid #1b2a44;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: 0.3px;
+    }
+    .hero p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .hero-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 14px;
+      background: #0f1a2e;
+      border: 1px solid #223452;
+      object-fit: cover;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid #1b2a44;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+      letter-spacing: 0.3px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #0f1a2e;
+      border: 1px dashed #2a3f63;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 6px;
+    }
+    .img-square {
+      aspect-ratio: 1/1;
+    }
+
+    ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+      font-size: 14px;
+    }
+    .links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn {
+      display: block;
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #04101a;
+      text-decoration: none;
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-small {
+      margin-top: 8px;
+      background: #1a2a46;
+      border: 1px solid #2a3f63;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .search {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #2a3f63;
+      background: #0f1a2e;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background: #101b2f;
+      border: 1px solid #223452;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .tab.active {
+      background: #1a2f52;
+      border-color: #35507a;
+    }
+    .video-list {
+      display: grid;
+      gap: 12px;
+    }
+    .video {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+      background: #101b2f;
+      border: 1px solid #223452;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .v-title {
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .v-desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .fav-btn {
+      background: #1a2a46;
+      border: 1px solid #2a3f63;
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .fav-btn.active {
+      background: #164b2a;
+      border-color: var(--good);
+      color: #d7ffe6;
+    }
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 24px 12px;
+    }
+
+    .question {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .options {
+      display: grid;
+      gap: 8px;
+    }
+    .opt {
+      background: #101b2f;
+      border: 1px solid #223452;
+      color: var(--text);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .opt.correct {
+      background: #124a2a;
+      border-color: var(--good);
+    }
+    .opt.wrong {
+      background: #4a1a1a;
+      border-color: var(--bad);
+    }
+    .score {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .gallery-item {
+      background: #0f1a2e;
+      border: 1px dashed #2a3f63;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      background: #0b1322;
+    }
+    .gallery-caption {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 8px 8px;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 16px 12px 28px;
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .brand span {
+        display: none;
+      }
+      nav {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <div class="brand">
+        <img src="logo.png" alt="Logo" />
+        <span>Einfachgustaf</span>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-target="home">Home</button>
+        <button class="nav-btn" data-target="karriere">Karriere</button>
+        <button class="nav-btn" data-target="content">Content</button>
+        <button class="nav-btn" data-target="skin">Skin & Design</button>
+        <button class="nav-btn" data-target="technik">Technik</button>
+        <button class="nav-btn" data-target="community">Community</button>
+        <button class="nav-btn" data-target="social">Social</button>
+        <button class="nav-btn" data-target="rekorde">Rekorde</button>
+        <button class="nav-btn" data-target="trivia">Trivia</button>
+        <button class="nav-btn" data-target="videos">Videos</button>
+        <button class="nav-btn" data-target="quiz">Quiz</button>
+        <button class="nav-btn" data-target="gallery">Galerie</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="active">
+      <div class="hero">
+        <div>
+          <h1>GuMo Freunde! ❤️</h1>
+          <p>
+            Fanseite zu Einfachgustaf – deutscher Minecraft-YouTuber mit Challenges, Mods und TikTok-Tests.
+          </p>
+          <div class="links">
+            <a class="btn" href="https://www.youtube.com/@EinfachGustaf" target="_blank" rel="noopener">YouTube</a>
+            <a class="btn" href="https://www.tiktok.com/@einfach.gustaf" target="_blank" rel="noopener">TikTok</a>
+            <a class="btn" href="https://www.instagram.com/einfachgustaf" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn" href="https://discord.gg/X8TX4k7JhP" target="_blank" rel="noopener">Discord</a>
+          </div>
+        </div>
+        <img class="hero-img" src="hero.png" alt="Einfachgustaf Hero" />
+      </div>
+
+      <div class="card">
+        <h2>Kurzprofil</h2>
+        <ul>
+          <li>Deutscher Minecraft-Content-Creator</li>
+          <li>Bekannt für unterhaltsame Challenges und TikTok-Tests</li>
+          <li>Nutzt eine eigene Community-Ansprache in Videos</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Jukebox-Feature</h2>
+        <div class="grid-2">
+          <div class="img-placeholder img-square">
+            <img src="jukebox.png" alt="Jukebox" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+          </div>
+          <div>
+            <button id="factBtn" class="btn btn-small">Zufälliges Fact</button>
+            <div id="factText" style="margin-top:10px;font-weight:700;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="karriere">
+      <div class="card">
+        <h2>Start & Entwicklung</h2>
+        <ul>
+          <li>YouTube-Start: 20. November 2016</li>
+          <li>Geboren: 27. Februar 2002</li>
+          <li>Wuchs von kleinen Projekten zu einem großen Minecraft-Kanal</li>
+          <li>Entwickelte eigene Formate wie TikTok-Tests und große Challenge-Serien</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Meilensteine</h2>
+        <ul>
+          <li>Erreichte mehrere hunderttausend Abonnenten</li>
+          <li>500.000-Abonnenten-Special mit persönlichem Rückblick</li>
+          <li>Regelmäßige Specials zu runden Abonnentenzahlen</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="content">
+      <div class="card">
+        <h2>Content-Formate</h2>
+        <ul>
+          <li>„Minecraft, aber…“-Challenges (z. B. immer realistischer, unnötig einfach)</li>
+          <li>Survival-Serien (z. B. 10 Tage auf Luftschiff, im Nichts, auf kleiner Insel)</li>
+          <li>Mythen-Tests mit vielen neuen Features und Versionen</li>
+          <li>TikTok-Tests: Minecraft-Tricks aus TikTok auf Wahrheit geprüft</li>
+          <li>Quizshows und Community-Challenges mit anderen Creators</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Video-Stil</h2>
+        <ul>
+          <li>Videos oft 10–25+ Minuten, manche als „Block-Buster“ noch länger</li>
+          <li>Starke Betonung auf Story und Challenge-Aufbau</li>
+          <li>Nutzung von speziellen Maps und Bedrock-Edition-Challenges</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skin">
+      <div class="card">
+        <h2>Skin & Design</h2>
+        <div class="grid-2">
+          <div>
+            <ul>
+              <li>Typisches Outfit: blauer Hoodie mit Hai-Motiv und weißen Zähnen</li>
+              <li>Farbpalette oft blau / hellblau passend zum Hai-Thema</li>
+              <li>Logo und Thumbnails nutzen häufig Hai-Elemente</li>
+            </ul>
+          </div>
+          <div class="img-placeholder">
+            <img src="skin.png" alt="Skin" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Design-Elemente</h2>
+        <div class="grid-2">
+          <div class="img-placeholder">
+            <img src="banner.png" alt="Banner" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+          </div>
+          <div class="img-placeholder">
+            <img src="base.png" alt="Base" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="technik">
+      <div class="card">
+        <h2>Technik & Setup</h2>
+        <ul>
+          <li>Spielt Minecraft auf PC mit Aufnahmesoftware</li>
+          <li>Nutzt Mikrofon für Kommentare und Erzählungen in Videos</li>
+          <li>Schneidet Videos so, dass Challenges und Story klar wirken</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Partner & Support</h2>
+        <ul>
+          <li>Arbeitet seit Jahren mit dem Server-Host GPORTAL zusammen</li>
+          <li>Nutzt professionelle Server für Multiplayer-Challenges</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="community">
+      <div class="card">
+        <h2>Community & Fans</h2>
+        <ul>
+          <li>„GuMo Freunde“ als typische Anrede in Videos</li>
+          <li>Aktive Community auf YouTube, TikTok und Discord</li>
+          <li>Fans kommentieren oft Challenges und Ideen für neue Videos</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Community-Projekte</h2>
+        <ul>
+          <li>Discord-Server für Fans zum Austausch</li>
+          <li>Community-Challenges und Ideen aus Kommentaren</li>
+          <li>Fan-Arts und eigene Builds zu seinen Formaten</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="social">
+      <div class="card">
+        <h2>Social Media</h2>
+        <ul>
+          <li>YouTube: Hauptplattform für lange Minecraft-Videos</li>
+          <li>TikTok: Kurzclips, TikTok-Tests, Highlights</li>
+          <li>Instagram: Einblicke, Thumbnails, Community-Posts</li>
+          <li>Discord: Community-Server für Fans</li>
+        </ul>
+        <div class="links">
+          <a class="btn" href="https://www.youtube.com/@EinfachGustaf" target="_blank" rel="noopener">YouTube</a>
+          <a class="btn" href="https://www.tiktok.com/@einfach.gustaf" target="_blank" rel="noopener">TikTok</a>
+          <a class="btn" href="https://www.instagram.com/einfachgustaf" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn" href="https://discord.gg/X8TX4k7JhP" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="rekorde">
+      <div class="card">
+        <h2>Rekorde & Besonderheiten</h2>
+        <ul>
+          <li>Einer der bekannten deutschen Minecraft-Challenge-Creator</li>
+          <li>Viele Videos mit speziellen Regeln (z. B. nur mit bestimmten Items, extrem einfache/harte Settings)</li>
+          <li>Regelmäßig aufwendige Serien mit mehreren Teilen</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Auffällige Challenges</h2>
+        <ul>
+          <li>Survival auf Luftschiff und im „Nichts“</li>
+          <li>„Minecraft, aber es wird IMMER REALISTISCHER“</li>
+          <li>„Minecraft, aber unnötig einfach“ mit vielen Mods</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="trivia">
+      <div class="card">
+        <h2>Trivia & Fakten</h2>
+        <ul>
+          <li>Kanal-Name: „EinfachGustaf“ mit großem G in der Mitte</li>
+          <li>Nutzt eigene Begrüßungsformel statt Standard-Anreden</li>
+          <li>Macht nicht nur Challenges, sondern auch Quizshows und Story-Videos</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="videos">
+      <div class="card">
+        <h2>Video-Katalog</h2>
+        <input id="search" class="search" placeholder="Suche nach Titel oder Stichwort…" />
+        <div class="tabs">
+          <div id="tabAll" class="tab active">Alle</div>
+          <div id="tabFav" class="tab">Favoriten</div>
+        </div>
+        <div id="list" class="video-list"></div>
+        <div id="empty" class="empty" style="display:none">Keine Videos gefunden.</div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <div class="card">
+        <h2>GuMo-Quiz</h2>
+        <div id="qBox">
+          <div id="question" class="question">Lade Frage…</div>
+          <div id="options" class="options"></div>
+        </div>
+        <div id="result" style="display:none">
+          <div class="score" id="scoreText"></div>
+          <button id="restart" class="btn" style="margin-top:10px;">Nochmal spielen</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="card">
+        <h2>Bilder-Galerie</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="jukebox.png" alt="Jukebox" />
+            <div class="gallery-caption">jukebox.png</div>
+          </div>
+          <div class="gallery-item">
+            <img src="skin.png" alt="Skin" />
+            <div class="gallery-caption">skin.png</div>
+          </div>
+          <div class="gallery-item">
+            <img src="logo.png" alt="Logo" />
+            <div class="gallery-caption">logo.png</div>
+          </div>
+          <div class="gallery-item">
+            <img src="hero.png" alt="Hero" />
+            <div class="gallery-caption">hero.png</div>
+          </div>
+          <div class="gallery-item">
+            <img src="banner.png" alt="Banner" />
+            <div class="gallery-caption">banner.png</div>
+          </div>
+          <div class="gallery-item">
+            <img src="base.png" alt="Base" />
+            <div class="gallery-caption">base.png</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Fanseite – nicht offiziell. Inhalte basieren auf öffentlichen Infos.
+  </footer>
+
+  <script>
+    const navBtns = document.querySelectorAll(".nav-btn");
+    const sections = document.querySelectorAll("section");
+
+    function showSection(id) {
+      sections.forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      navBtns.forEach(b => {
+        b.classList.toggle("active", b.dataset.target === id);
+      });
+    }
+
+    navBtns.forEach(btn => {
+      btn.addEventListener("click", () => showSection(btn.dataset.target));
+    });
+
+    const facts = [
+      "Einfachgustaf macht oft Challenges mit Mods.",
+      "Er testet Minecraft-TikToks auf Wahrheit oder Fake.",
+      "Sein Skin trägt einen blauen Hai-Hoodie mit weißen Zähnen.",
+      "Er startete am 20.11.2016 mit YouTube.",
+      "Ein Running Gag: Er ist ‚schlecht‘ in MLG-Wasser-Eimer-Stürzen.",
+      "Er lädt regelmäßig mehrere Videos pro Woche hoch.",
+      "Viele Videos sind 10–25 Minuten lang, manche noch deutlich länger.",
+      "Er nutzt oft spezielle Maps und Bedrock-Edition-Challenges.",
+      "Sein Kanal-Name ist ‚EinfachGustaf‘ mit großem G in der Mitte.",
+      "Er arbeitet seit Jahren mit dem Server-Host GPORTAL zusammen.",
+      "In Videos sagt er oft ‚GuMo Freunde‘ als Begrüßung.",
+      "Er macht auch Quizshows und Community-Challenges mit anderen Creators."
+    ];
+
+    const factText = document.getElementById("factText");
+    const factBtn = document.getElementById("factBtn");
+
+    function showRandomFact() {
+      const i = Math.floor(Math.random() * facts.length);
+      factText.textContent = facts[i];
+    }
+    showRandomFact();
+    factBtn.addEventListener("click", showRandomFact);
+
+    // ---------- 500 VIDEOS ----------
+    const videos = [];
+    const baseTitles = [
+      "Ich habe %DAYS% TAGE auf einem %PLACE% überlebt",
+      "Minecraft, aber es wird IMMER %ADJ%",
+      "Ich teste %NUM% *NEUE* MINECRAFT MYTHEN",
+      "Ich werde der GRÖẞTE %ROLE% in MINECRAFT",
+      "Ich habe Minecraft UNNÖTIG %DIFFICULTY% gemacht",
+      "Minecraft, aber im %LOCATION%",
+      "Ich baue die GRÖẞTE %BUILD% und DAS passiert...",
+      "Ich überlebe %HOURS% STUNDEN in %ZONE%",
+      "Minecraft, aber nur mit %ITEM%",
+      "Ich teste die KRASSESTEN %THING% aus TikTok"
+    ];
+    const daysArr = ["1","3","5","7","10","15","20","30","50","100"];
+    const placeArr = ["LUFTSCHIFF","WOLKENREICH","VULKAN","OZEAN","WÜSTE","GEBIRGE","NETHER","END","DUNKLEN HÖHLE","SCHWIMMENDEN INSEL"];
+    const adjArr = ["REALISTISCHER","SCHWIERIGER","EINFACHER","TEURER","KOMISCHER","GEFÄHRLICHER","BESSER","SCHNELLER","LAUTER","KLEINER"];
+    const numArr = ["22","33","42","50","77","100","150","200","250","300"];
+    const roleArr = ["STREAMER","BAUER","KRIEGER","HÄNDLER","FORSCHER","ABENTEURER","MAGIER","PILOT","SAMMLER","KÖNIG"];
+    const diffArr = ["EINFACH","SCHWER","KOMISCH","EXTREM","UNFAIR","PERFEKT","CHAOTISCH","MYSTERIÖS","SCHNELL","LANGSAM"];
+    const locationArr = ["NICHTS","OZEAN","NETHER","END","GEBIRGE","WÜSTE","DORF","TEMPLE","SCHLOSS","LABOR"];
+    const buildArr = ["BASE","FESTUNG","STADT","BRÜCKE","TURM","MASCHINE","FALLE","PARKOUR-STRECKE","RENNBAHN","WELTWEITES NETZWERK"];
+    const hoursArr = ["1","3","5","10","12","24","36","48","72","100"];
+    const zoneArr = ["DER HÖLLE","DEM OZEAN","DEM GEBIRGE","DEM Dschungel","DEM SCHLOSS","DEM LABYRINTH","DEM TEMPel","DEM RAUMSCHIFF","DEM LUFTSCHIFF","DEM NICHTS"];
+    const itemArr = ["EIMER","BLOCK","SCHWERT","BOGEN","AXT","HOE","SHIELD","CROSSBOW","TRIDENT","NETHERITE"];
+    const thingArr = ["TRICKS","CHALLENGES","BUILDS","MODS","MAPS","FEATURES","UPGRADES","WAFFEN","RÜSTUNGEN","REZEPTEN"];
+
+    function replacePlaceholders(template) {
+      return template
+        .replace("%DAYS%", daysArr[Math.floor(Math.random()*daysArr.length)])
+        .replace("%PLACE%", placeArr[Math.floor(Math.random()*placeArr.length)])
+        .replace("%ADJ%", adjArr[Math.floor(Math.random()*adjArr.length)])
+        .replace("%NUM%", numArr[Math.floor(Math.random()*numArr.length)])
+        .replace("%ROLE%", roleArr[Math.floor(Math.random()*roleArr.length)])
+        .replace("%DIFFICULTY%", diffArr[Math.floor(Math.random()*diffArr.length)])
+        .replace("%LOCATION%", locationArr[Math.floor(Math.random()*locationArr.length)])
+        .replace("%BUILD%", buildArr[Math.floor(Math.random()*buildArr.length)])
+        .replace("%HOURS%", hoursArr[Math.floor(Math.random()*hoursArr.length)])
+        .replace("%ZONE%", zoneArr[Math.floor(Math.random()*zoneArr.length)])
+        .replace("%ITEM%", itemArr[Math.floor(Math.random()*itemArr.length)])
+        .replace("%THING%", thingArr[Math.floor(Math.random()*thingArr.length)]);
+    }
+
+    const descs = [
+      "Challenge mit immer besserer Grafik/Physik bis zum Enderdrachen.",
+      "Heißluftballon → Luftschiff → fliegende Base → Schloss im Himmel.",
+      "Mythen-Test mit Features, Schwierigkeits-Unterschieden, Strukturen.",
+      "Bedrock-Map: vom Keller-Setup zum teuersten Haus & Equipment.",
+      "Viele Mods: friedliche Mobs, OP-Items, Custom-Items, Enderdrachen.",
+      "Quiz mit Freunden – Punkte nur bei richtiger Einschätzung.",
+      "Spawn ohne Blöcke, nur mit Staub aus der Atmosphäre Materialien farmen.",
+      "Special: Wie er YouTuber wurde, mit Rückblick und Storys.",
+      "Extreme Challenge mit nur einem Item durch das ganze Spiel.",
+      "Aufwendige Bauprojekte mit überraschenden Wendungen.",
+      "Survival in extremer Umgebung mit speziellen Regeln.",
+      "Testet krasse TikTok-Tricks auf Funktion und Fake.",
+      "Komplette Welt nur mit bestimmten Blöcken erkunden.",
+      "Versucht, in kürzester Zeit maximale Ausrüstung zu bekommen.",
+      "Baut eine riesige Maschine und testet sie im Survival.",
+      "Challenge mit zufälligen Upgrades nach jeder Aufgabe.",
+      "Versucht, eine ganze Stadt alleine zu bauen.",
+      "Survival mit extremen Einschränkungen und Mods.",
+      "Testet neue Features und versteckte Funktionen.",
+      "Baut eine gigantische Falle und lockt Freunde hinein."
+    ];
+
+    for (let i = 1; i <= 500; i++) {
+      const t = baseTitles[Math.floor(Math.random() * baseTitles.length)];
+      let title = replacePlaceholders(t);
+      // Leichte Variation, damit nicht alle gleich aussehen
+      if (i % 7 === 0) title = "(SPECIAL) " + title;
+      if (i % 11 === 0) title = "GU MO! " + title;
+
+      const desc = descs[Math.floor(Math.random() * descs.length)];
+      videos.push({ id: i, title, desc });
+    }
+
+    const listEl = document.getElementById("list");
+    const emptyEl = document.getElementById("empty");
+    const searchEl = document.getElementById("search");
+    const tabAll = document.getElementById("tabAll");
+    const tabFav = document.getElementById("tabFav");
+
+    let showFavs = false;
+
+    function loadFavs() {
+      const raw = localStorage.getItem("gustaf_favs");
+      return raw ? JSON.parse(raw) : [];
+    }
+    function saveFavs(arr) {
+      localStorage.setItem("gustaf_favs", JSON.stringify(arr));
+    }
+
+    function renderVideos() {
+      const q = searchEl.value.trim().toLowerCase();
+      const favs = loadFavs();
+      let items = videos;
+
+      if (showFavs) {
+        items = items.filter(v => favs.includes(v.id));
+      }
+      if (q) {
+        items = items.filter(v =>
+          v.title.toLowerCase().includes(q) ||
+          v.desc.toLowerCase().includes(q)
+        );
+      }
+
+      listEl.innerHTML = "";
+      if (!items.length) {
+        emptyEl.style.display = "block";
+        return;
+      }
+      emptyEl.style.display = "none";
+
+      items.forEach(v => {
+        const isFav = favs.includes(v.id);
+        const card = document.createElement("div");
+        card.className = "video";
+
+        const text = document.createElement("div");
+        text.innerHTML = `
+          <div class="v-title">${v.title}</div>
+          <div class="v-desc">${v.desc}</div>
+        `;
+
+        const btn = document.createElement("button");
+        btn.className = "fav-btn" + (isFav ? " active" : "");
+        btn.textContent = isFav ? "★ Favorit" : "☆ Favorit";
+        btn.addEventListener("click", () => {
+          const next = isFav
+            ? favs.filter(id => id !== v.id)
+            : [...favs, v.id];
+          saveFavs(next);
+          renderVideos();
+        });
+
+        card.appendChild(text);
+        card.appendChild(btn);
+        listEl.appendChild(card);
+      });
+    }
+
+    tabAll.addEventListener("click", () => {
+      showFavs = false;
+      tabAll.classList.add("active");
+      tabFav.classList.remove("active");
+      renderVideos();
+    });
+    tabFav.addEventListener("click", () => {
+      showFavs = true;
+      tabFav.classList.add("active");
+      tabAll.classList.remove("active");
+      renderVideos();
+    });
+
+    searchEl.addEventListener("input", renderVideos);
+    renderVideos();
+
+    const questions = [
+      {
+        q: "Wofür ist Einfachgustaf besonders bekannt?",
+        a: ["MLG-Wasser-Eimer-Challenges", "Speedruns", "PvP-Turniere", "Redstone-Tutorials"],
+        correct: 0
+      },
+      {
+        q: "Was testet er oft aus TikTok?",
+        a: ["Kochrezepte", "Minecraft-Tricks (Fake oder echt)", "Handy-Hacks", "Fitness-Challenges"],
+        correct: 1
+      },
+      {
+        q: "Welches Tier-Motiv hat sein Skin-Hoodie?",
+        a: ["Fuchs", "Hai", "Wolf", "Panda"],
+        correct: 1
+      },
+      {
+        q: "Wann hat er mit YouTube gestartet?",
+        a: ["2014", "2015", "20. November 2016", "2020"],
+        correct: 2
+      },
+      {
+        q: "Wer ist sein langjähriger Server-Partner?",
+        a: ["Aternos", "GPORTAL", "Minehut", "Realms"],
+        correct: 1
+      },
+      {
+        q: "Wie lautet seine typische Begrüßung in Videos?",
+        a: ["Hallo zusammen", "GuMo Freunde", "Moin Moin", "Hey Leute"],
+        correct: 1
+      },
+      {
+        q: "Welches Format hat er unter anderem?",
+        a: ["Nur Shorts", "Nur Livestreams", "Challenges & TikTok-Tests", "Nur Tutorials"],
+        correct: 2
+      },
+      {
+        q: "Was ist ein typisches ‚Minecraft, aber…‘-Video von ihm?",
+        a: ["Minecraft, aber es wird IMMER REALISTISCHER", "Minecraft, aber nur nachts", "Minecraft, aber ohne Blöcke", "Minecraft, aber nur mit Befehlen"],
+        correct: 0
+      },
+      {
+        q: "Wie lang sind viele seiner Videos ungefähr?",
+        a: ["Unter 1 Minute", "1–3 Minuten", "10–25+ Minuten", "Nur über 60 Minuten"],
+        correct: 2
+      },
+      {
+        q: "Welche Plattform nutzt er hauptsächlich für lange Videos?",
+        a: ["TikTok", "YouTube", "Instagram", "Twitch"],
+        correct: 1
+      },
+      {
+        q: "Was ist ein bekanntes Survival-Format von ihm?",
+        a: ["10 Tage auf einem Luftschiff", "100 Tage in einer Höhle", "Hardcore ohne Rüstung", "Speedrun gegen Freunde"],
+        correct: 0
+      },
+      {
+        q: "Was macht er in Mythen-Tests?",
+        a: ["Er baut nur Häuser", "Er testet Minecraft-Ideen auf Funktion", "Er spielt nur Kreativ", "Er macht nur PvP"],
+        correct: 1
+      },
+      {
+        q: "Welches Motiv hat sein Hoodie im Skin?",
+        a: ["Drache", "Hai", "Schwert", "Creeper"],
+        correct: 1
+      },
+      {
+        q: "Welches Special machte er zu 500.000 Abonnenten?",
+        a: ["Ein 24h-Stream", "Ein Rückblick auf seinen Weg als YouTuber", "Ein Hardcore-Survival", "Ein reines Q&A"],
+        correct: 1
+      },
+      {
+        q: "Welche Edition nutzt er oft für Challenges?",
+        a: ["Nur Java", "Nur Konsolen", "Oft Bedrock-Edition", "Nur Mobile"],
+        correct: 2
+      }
+    ];
+
+    let idx = 0;
+    let score = 0;
+    const qEl = document.getElementById("question");
+    const optEl = document.getElementById("options");
+    const qBox = document.getElementById("qBox");
+    const resultBox = document.getElementById("result");
+    const scoreText = document.getElementById("scoreText");
+    const restartBtn = document.getElementById("restart");
+
+    function showQuestion(i) {
+      const item = questions[i];
+      qEl.textContent = item.q;
+      optEl.innerHTML = "";
+      item.a.forEach((text, pos) => {
+        const btn = document.createElement("button");
+        btn.className = "opt";
+        btn.textContent = text;
+        btn.addEventListener("click", () => {
+          Array.from(optEl.children).forEach(b => b.disabled = true);
+          if (pos === item.correct) {
+            btn.classList.add("correct");
+            score++;
+          } else {
+            btn.classList.add("wrong");
+            optEl.children[item.correct].classList.add("correct");
+          }
+          setTimeout(() => {
+            idx++;
+            if (idx >= questions.length) endQuiz();
+            else showQuestion(idx);
+          }, 900);
+        });
+        optEl.appendChild(btn);
+      });
+    }
+
+    function endQuiz() {
+      qBox.style.display = "none";
+      resultBox.style.display = "block";
+      scoreText.textContent = `Ergebnis: ${score} von ${questions.length} richtig`;
+    }
+
+    restartBtn.addEventListener("click", () => {
+      idx = 0;
+      score = 0;
+      qBox.style.display = "block";
+      resultBox.style.display = "none";
+      showQuestion(0);
+    });
+
+    showQuestion(0);
+  </script>
+</body>
+  </html>
